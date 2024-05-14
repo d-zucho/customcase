@@ -1,5 +1,6 @@
 import MaxWidthWrapper from '@/components/MaxWidthWrapper'
 import Phone from '@/components/Phone'
+import ValueSection from '@/components/ValueSection'
 import { Check, Star } from 'lucide-react'
 
 export default function Home() {
@@ -103,6 +104,10 @@ export default function Home() {
           </div>
         </MaxWidthWrapper>
       </section>
+
+      {/* value proposition section */}
+
+      <ValueSection />
     </div>
   )
 }
