@@ -1,6 +1,7 @@
 import { Check, Star } from 'lucide-react'
 import { Icons } from './Icons'
 import MaxWidthWrapper from './MaxWidthWrapper'
+import { Reviews } from './Reviews'
 
 const ValueSection = () => {
   return (
@@ -97,6 +98,10 @@ const ValueSection = () => {
           </div>
         </div>
       </MaxWidthWrapper>
+
+      <div className='pt-16'>
+        <Reviews />
+      </div>
     </section>
   )
 }
