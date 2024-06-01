@@ -1,5 +1,7 @@
 import { createUploadthing, type FileRouter } from 'uploadthing/next'
 import { z } from 'zod'
+import sharp from 'sharp'
+import { db } from '@/db'
 
 const f = createUploadthing()
 
@@ -19,6 +21,18 @@ export const ourFileRouter = {
       // This code RUNS ON YOUR SERVER after upload
       const { configId } = metadata.input
       // ? Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
+
+      const res = await fetch(file.url) // fetch the uploaded file
+      const buffer = await res.arrayBuffer() // convert to buffer
+      const imgMetadata = await sharp(buffer).metadata() // get image metadata
+      const { width, height } = imgMetadata // get width and height
+
+      if (!configId) {
+        const configureation = await db.configuration.create({
+          // data: {}
+        })
+      }
+
       return { configId }
     }),
 } satisfies FileRouter

@@ -31,3 +31,7 @@ export const db = prisma
 // 8. It assigns the global cachedPrisma variable to the prisma variable.
 // 9. It exports the prisma variable as db.
 // 10. It ensures that only one PrismaClient instance is created in development mode.
+
+//? A Prisma Client is a type-safe database client that helps you interact
+//? with your database. It is generated based on your Prisma schema and
+//? provides a set of methods for querying, writing, and updating data in your database.
