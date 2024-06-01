@@ -22,7 +22,7 @@ export const ourFileRouter = {
     .onUploadComplete(async ({ metadata, file }) => {
       // This code RUNS ON YOUR SERVER after upload
       const { configId } = metadata.input
-      // ? Whatever is returned here is sent to the clientside `onClientUploadComplete` callback
+      // ? Whatever is returned here is sent to the client side `onClientUploadComplete` callback
 
       const res = await fetch(file.url) // fetch the uploaded file
       const buffer = await res.arrayBuffer() // convert to buffer
@@ -35,7 +35,7 @@ export const ourFileRouter = {
             imageUrl: file.url,
             height: height || 500,
             width: width || 500,
-            croppedImageUrl: file.url,
+            croppedImageUrl: '', // when image is uploaded, croppedImageUrl is empty
           },
         })
         return { configId: configuration.id }
