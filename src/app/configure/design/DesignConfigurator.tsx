@@ -1,6 +1,9 @@
+'use client'
 import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { cn } from '@/lib/utils'
 import NextImage from 'next/image'
+import { Rnd } from 'react-rnd'
+
 interface DesignConfigProps {
   configId: string
   imageUrl: string
@@ -40,14 +43,25 @@ const DesignConfigurator = ({
           />
         </div>
 
-        <div className='relative w-full h-full'>
-          <NextImage
-            src={imageUrl}
-            fill
-            alt='your image'
-            className='pointer-events-none'
-          />
-        </div>
+        <Rnd
+          default={{
+            x: 150,
+            y: 205,
+            height: imageDimensions.height / 4,
+            width: imageDimensions.width / 4,
+          }}
+          lockAspectRatio
+          // resizeHandleComponent={}
+        >
+          <div className='relative w-full h-full'>
+            <NextImage
+              src={imageUrl}
+              fill
+              alt='your image'
+              className='pointer-events-none'
+            />
+          </div>
+        </Rnd>
       </div>
     </div>
   )
