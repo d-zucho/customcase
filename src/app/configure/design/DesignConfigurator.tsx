@@ -7,7 +7,12 @@ import { Radio, RadioGroup } from '@headlessui/react'
 import NextImage from 'next/image'
 import { Rnd } from 'react-rnd'
 import DesignOptions from './DesignOptions'
-import { COLORS, MODELS } from '@/validators/option-validator'
+import {
+  COLORS,
+  FINISHES,
+  MATERIALS,
+  MODELS,
+} from '@/validators/option-validator'
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
 import {
@@ -33,9 +38,13 @@ const DesignConfigurator = ({
   const [options, setOptions] = useState<{
     color: (typeof COLORS)[number]
     model: (typeof MODELS.options)[number]
+    material: (typeof MATERIALS.options)[number]
+    finish: (typeof FINISHES.options)[number]
   }>({
     color: COLORS[0],
     model: MODELS.options[0],
+    material: MATERIALS.options[0],
+    finish: FINISHES.options[0],
   })
   return (
     <div className='relative mt-20 grid grid-cols-3 mb-20 pb-20'>
@@ -191,6 +200,54 @@ const DesignConfigurator = ({
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
+
+                {[MATERIALS, FINISHES].map(
+                  ({ name, options: selectableOptions }) => (
+                    <RadioGroup
+                      key={name}
+                      value={options[name]}
+                      onChange={(val) => {
+                        setOptions((prev) => ({
+                          ...prev,
+                          [name]: val,
+                        }))
+                      }}
+                    >
+                      <Label>
+                        {name.slice(0, 1).toUpperCase() + name.slice(1)}
+                      </Label>
+                      <div className='mt-3 space-y-4'>
+                        {selectableOptions.map((option) => (
+                          <Radio
+                            key={option.label}
+                            value={option}
+                            className={({ checked }) =>
+                              cn(
+                                'group flex items-center cursor-pointer active:ring-0 focus:ring-0 active:outline-none focus:outline-none',
+                                checked ? 'text-primary' : 'text-gray-900'
+                              )
+                            }
+                          >
+                            <div className='flex items-center gap-4'>
+                              <span className='flex-shrink-0 w-8 h-8 bg-gray-100 rounded-lg' />
+                              <div>
+                                <h3 className='font-semibold'>
+                                  {option.label}
+                                </h3>
+                                <p className='text-sm text-gray-500'>
+                                  {option.description}
+                                </p>
+                                <p className='transition opacity-0 group-data-[checked]:opacity-100'>
+                                  Currently selected
+                                </p>
+                              </div>
+                            </div>
+                          </Radio>
+                        ))}
+                      </div>
+                    </RadioGroup>
+                  )
+                )}
               </div>
             </div>
           </div>
